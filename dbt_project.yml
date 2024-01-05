@@ -31,7 +31,3 @@ models:
       +materialized: view
     marts:
       +materialized: table
-
-dispatch:
-  - macro_namespace: dbt_databricks
-    search_order: ['jaffle_shop', 'dbt_databricks']
