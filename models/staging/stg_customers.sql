@@ -1,5 +1,7 @@
 {{
-    config(materialized='incremental')
+    config(
+        materialized='incremental',
+        incremental_strategy='append')
 }}
 
 with
@@ -22,7 +24,7 @@ renamed as (
 
     from source
     {% if is_incremental() %}
-        where customer_id > (select max(id) from {{this}})
+        where id > (select max(id) from {{this}})
     {% endif %}
 
 )
