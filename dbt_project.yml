@@ -3,7 +3,7 @@ version: "2.1.0"
 config-version: 2
 
 profile: "snowflake"
-require-dbt-version: ">=1.6.0"
+require-dbt-version: ">=1.4.3"
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
