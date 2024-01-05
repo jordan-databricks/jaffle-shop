@@ -1,3 +1,7 @@
+{{
+    config(materialized='incremental')
+}}
+
 with
 
 source as (
@@ -17,6 +21,9 @@ renamed as (
         name as customer_name
 
     from source
+    {% if is_incremental() %}
+        where customer_id > (select max(id) from {{this}})
+    {{% endif %}
 
 )
 
