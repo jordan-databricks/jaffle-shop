@@ -1,3 +1,4 @@
+version: 2
 models:
   - name: stg_locations
     description: List of open locations with basic cleaning and transformation applied, one row per location.

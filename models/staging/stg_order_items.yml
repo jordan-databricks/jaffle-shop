@@ -1,3 +1,4 @@
+version: 2
 models:
   - name: stg_order_items
     description: Individual food and drink items that make up our orders, one row per item.

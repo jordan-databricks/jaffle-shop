@@ -1,3 +1,4 @@
+version: 2
 semantic_models:
   - name: locations
     description: |
