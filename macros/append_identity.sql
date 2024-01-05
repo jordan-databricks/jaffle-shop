@@ -1,4 +1,4 @@
-{% macro databricks__get_incremental_append_with_identity_sql(arg_dict) %}
+{% macro databricks__get_incremental_append_sql(arg_dict) %}
   {% do return(get_insert_into_sql(arg_dict["temp_relation"], arg_dict["target_relation"])) %}
 {% endmacro %}
 
