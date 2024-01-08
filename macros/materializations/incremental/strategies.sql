@@ -1,5 +1,5 @@
 {% macro databricks__get_incremental_append_sql(arg_dict) %}
-  {% do log("hello I'm in my customer strategies macro") %}
+  {% do log("hello I'm in my custom strategies macro", True) %}
   {% do return(get_insert_into_with_identity_sql(arg_dict["temp_relation"], arg_dict["target_relation"])) %}
 {% endmacro %}
 
