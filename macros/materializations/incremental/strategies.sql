@@ -43,7 +43,7 @@
 {% endmacro %}
 
 {% macro create_table_with_identity(source_relation, identity_start=1) %}
-    {%- set source_identifier_with_identity = source_relation.identifier ~ '_with_identity__dbt_tmp' -%}
+    {%- set source_identifier_with_identity = source_relation.identifier ~ '_with_identity' -%}
     {%- set source_relation_with_identity = api.Relation.create(
         identifier = source_identifier_with_identity,
         schema = source_relation.schema,
@@ -57,6 +57,12 @@
             {{column.quoted}} {{column.data_type}} {%- if not loop.last -%}, {%- endif -%}
         {%- endfor -%}
     )
+
+    {%- call statement('populate table') -%}
+        insert into {{ source_relation_with_identity}}
+        select * from {{ source_relation }}
+    {% endcall %}
+
     {{ return(source_relation_with_identity) }}
 
 {% endmacro %}
