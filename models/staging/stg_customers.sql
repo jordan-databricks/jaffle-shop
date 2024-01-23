@@ -1,7 +1,8 @@
 {{
     config(
         materialized='incremental',
-        incremental_strategy='append')
+        incremental_strategy='replace_where',
+        incremental_predicates="name = 'Gerald Odom'")
 }}
 
 with
