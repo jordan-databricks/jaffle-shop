@@ -35,7 +35,7 @@
     replace where {{ predicates }}
       {% endif %}
     {% endif %}
-    table {{ temp_relation_with_identity }}
+    table {{ temp_relation_with_identity }};
 
     alter table {{ target_relation }} alter column db_id sync identity
 {% endmacro %}
