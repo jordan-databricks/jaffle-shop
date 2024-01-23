@@ -53,7 +53,7 @@
         )
     -%}
     
-    {%- set columns = adapter.get_columns_in_relation(relation) -%}
+    {%- set columns = adapter.get_columns_in_relation(relation) | rejectattr("name", "equalto", "db_id") -%}
     {%- set cols_csv = columns | map(attribute='quoted') | join(', ') -%}
     
     {%- call statement('create identity table') -%}
@@ -67,7 +67,7 @@
     
     {%- call statement('populate table') -%}
         insert into {{ relation_with_identity}} ( {{ cols_csv }} )
-        select * from {{ relation }}
+        select cols_csv from {{ relation }}
     {% endcall %}
 
     {{ return(relation_with_identity) }}
