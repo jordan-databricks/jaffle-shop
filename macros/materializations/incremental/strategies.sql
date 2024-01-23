@@ -19,7 +19,8 @@
     {%- set predicates = args_dict['incremental_predicates'] -%}
     {%- set target_relation = args_dict['target_relation'] -%}
     {%- set temp_relation = args_dict['temp_relation'] -%}
-    
+   
+    {{ log("Creating identity table " ~ temp_relation.identifier ~ " in schema " ~ temp_relation.schema ~ " in database " ~ temp_relation.database, info=True) }} 
     {%- call statement('max_identity', fetch_result=True) -%}
         select max(db_id) as max_identity from {{ target_relation }}
     {% endcall %}
