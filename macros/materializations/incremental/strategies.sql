@@ -57,7 +57,7 @@
             {{column.quoted}} {{column.data_type}} {%- if not loop.last -%}, {%- endif -%}
         {%- endfor -%}
     )
-
+    {{ log("Populating table with identity", info=True) }}
     {%- call statement('populate table') -%}
         insert into {{ source_relation_with_identity}}
         select * from {{ source_relation }}
