@@ -21,7 +21,7 @@
     {%- set temp_relation = args_dict['temp_relation'] -%}
     
     {%- call statement('max_identity', fetch_result=True) -%}
-        select max(db_id) as max_identity from {{ temp_relation }}
+        select max(db_id) as max_identity from {{ target_relation }}
     {% endcall %}
     
     {%- set starting_identity = load_result('max_identity')['data'][0][0] -%}
