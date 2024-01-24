@@ -26,27 +26,29 @@
     
     {%- set starting_identity = load_result('max_identity')['data'][0][0] -%}
     {%- set temp_relation_with_identity = create_table_with_identity(temp_relation, target_relation, starting_identity + 1) -%}
-        
-    insert into {{ target_relation }}
-    {% if predicates %}
-      {% if predicates is sequence and predicates is not string %}
-    replace where {{ predicates | join(' and ') }}
-      {% else %}
-    replace where {{ predicates }}
-      {% endif %}
-    {% endif %}
-    table {{ temp_relation_with_identity }};
+    
+    {%- set query %}    
+        insert into {{ target_relation }}
+        {% if predicates %}
+        {% if predicates is sequence and predicates is not string %}
+        replace where {{ predicates | join(' and ') }}
+        {% else %}
+        replace where {{ predicates }}
+        {% endif %}
+        {% endif %}
+        table {{ temp_relation_with_identity }};
+    
+        alter table {{ target_relation }} alter column db_id sync identity;
 
-    {{ sync_identity(target_relation) }};
-    {{ drop_table(temp_relation_with_identity) }}
+        drop table {{ temp_relation_with_identity }}
+    {% endset %}
+    {{ return(query) }}
 {% endmacro %}
 
 {% macro sync_identity(relation) %}
-    alter table {{ relation }} alter column db_id sync identity
 {% endmacro %}
 
 {% macro drop_table(relation) %}
-    drop table {{ relation }}
 {% endmacro %}
 
 {% macro create_table_with_identity(source_relation, target_relation, identity_start=1) %}
