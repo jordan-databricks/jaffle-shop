@@ -2,7 +2,7 @@
     config(
         materialized='incremental',
         incremental_strategy='replace_where',
-        incremental_predicates="name = 'Gerald Odom'",
+        incremental_predicates="customer_name = 'Gerald Odom'",
         post_hook="alter table {{ this }} alter column db_id sync identity")
 }}
 
