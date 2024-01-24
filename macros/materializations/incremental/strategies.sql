@@ -35,9 +35,9 @@
     replace where {{ predicates }}
       {% endif %}
     {% endif %}
-    table {{ temp_relation_with_identity }}
+    table {{ temp_relation_with_identity }};
 
-    {{ sync_identity(target_relation) }}
+    {{ sync_identity(target_relation) }};
     {{ drop_table(temp_relation_with_identity) }}
 {% endmacro %}
 
