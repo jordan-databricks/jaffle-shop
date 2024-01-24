@@ -43,6 +43,10 @@
         )
     -%}
     
+    {%- call statement('drop temp table') -%}
+        drop table {{temp_relation_with_identity}} -%}
+    {%- endcall -%}
+
     {%- call statement('create identity table') -%}
         create table {{temp_relation_with_identity}} like {{ target_relation }}
     {%- endcall -%}
