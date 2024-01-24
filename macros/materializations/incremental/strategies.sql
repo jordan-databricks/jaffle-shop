@@ -68,7 +68,7 @@
     
     {%- call statement('populate table') -%}
         insert into {{ temp_relation_with_identity}} ( {{ cols_csv }} )
-        select cols_csv from {{ source_relation }}
+        select {{ cols_csv }} from {{ source_relation }}
     {% endcall %}
 
     {{ return(temp_relation_with_identity) }}
