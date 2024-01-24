@@ -20,7 +20,7 @@
     {%- set target_relation = args_dict['target_relation'] -%}
     {%- set temp_relation = args_dict['temp_relation'] -%}
    
-    {%- set temp_relation_with_identity = create_table_with_identity(temp_relation, target_relation, starting_identity + 1) -%}
+    {%- set temp_relation_with_identity = create_table_with_identity(temp_relation, target_relation) -%}
     
     insert into {{ target_relation }}
     {% if predicates %}
@@ -34,7 +34,7 @@
     
 {% endmacro %}
 
-{% macro create_table_with_identity(source_relation, target_relation, identity_start=1) %}
+{% macro create_table_with_identity(source_relation, target_relation) %}
     {%- set identifier_with_identity = target_relation.identifier ~ '_with_identity__dbt_tmp' -%}
     {%- set temp_relation_with_identity = api.Relation.create(
         identifier = identifier_with_identity,
