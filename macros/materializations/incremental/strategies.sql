@@ -43,8 +43,12 @@
         )
     -%}
     
+    {%- call statement('drop table') -%}
+        drop table if exists {{ temp_relation_with_identity }}
+    {%- endcall -%}
+
     {%- call statement('create identity table') -%}
-        create table if not exists {{temp_relation_with_identity}} like {{ target_relation }}
+        create table {{temp_relation_with_identity}} like {{ target_relation }}
     {%- endcall -%}
     
     {%- set insert_statement = get_insert_into_with_identity_sql(source_relation, temp_relation_with_identity) -%}
