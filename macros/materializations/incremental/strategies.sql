@@ -53,7 +53,7 @@
         )
     -%}
     
-    {%- set columns = adapter.get_columns_in_relation(target_relation)  -%}
+    {%- set columns = adapter.get_columns_in_relation(target_relation) | rejectattr("name", "equalto", "db_id") -%}
     {%- set cols_csv = columns | map(attribute='quoted') | join(', ') -%}
   
     {{ log("Creating temp table " ~ identifier_with_identity ~ " in schema " ~ target_relation.schema ~ " in catalog " ~ target_relation.database ~ " with columns " ~ columns, info=True) }} 
